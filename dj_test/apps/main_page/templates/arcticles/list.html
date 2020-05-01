@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% block title %}Last news{% endblock %}
+
+{% block content %}
+    <h3><strong>Posts:</strong></h3>
+    <br/>
+
+    {% if latest_news %}
+        <ul>
+        {% for a in latest_news %}
+            <li>
+            <a href="{% url 'main_page:detail' a.id %}">{{a.article_title}}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        There is no news
+    {% endif %}
+<br/>
+<form action="{% url 'main_page:create_article'%}" method="POST">
+    {% csrf_token %}
+    <input type="text" required placeholder="Your name" name="name"><br>
+    <textarea name="text" required="" placeholder="Article text" cols="30" rows="10"></textarea><br>
+    <button type="submit">Post Article</button>
+
+</form>
+{% endblock %}
