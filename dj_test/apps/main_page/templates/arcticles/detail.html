@@ -9,6 +9,15 @@
 <p>{{article.article_text}}</p>
 <em>{{article.pub_date}}</em>
 
+
+{% if request.user.id == 1 %}
+<form action="{% url 'main_page:delete_article' article.id %}" method="get">
+    {% csrf_token %}
+
+    <button type="submit">Delete</button>
+
+</form>
+{% endif %}
 <hr>
 {% if l %}
     {% for c in l %}
@@ -20,12 +29,13 @@
     {% endfor %}
 {% endif %}
 <hr>
-
+{% if user.is_authenticated %}
 <form action="{% url 'main_page:leave_comment' article.id %}" method="POST">
     {% csrf_token %}
-    <input type="text" required placeholder="Your name" name="name"><br>
+
     <textarea name="text" required="" placeholder="Comment text" cols="30" rows="10"></textarea><br>
     <button type="submit">Leave comment</button>
 
 </form>
+{% endif %}
 {% endblock %}

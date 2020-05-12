@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
@@ -17,18 +18,24 @@ def detail(request, article_id):
     return render(request, 'arcticles/detail.html', {'article': article, 'l': l})
 
 
+@login_required
 def leave_comment(request, article_id):
     a = get_object_or_404(Article, id=article_id)
-    a.comment_set.create(author_name=request.POST['name'], comment_text=request.POST['text'])
+    a.comment_set.create(author_name=request.user.username, comment_text=request.POST['text'])
     return HttpResponseRedirect(reverse('main_page:detail', args=(a.id,)))
 
-
+@login_required
 def create_article(request):
-
-    Article.objects.create(article_title=request.POST.get('name'), article_text=request.POST.get('text'), pub_date=timezone.now())
+    Article.objects.create(article_title=request.POST.get('name'), article_text=request.POST.get('text'),
+                           pub_date=timezone.now())
     return HttpResponseRedirect(reverse('main_page:index'))
-
 
 
 def home(request):
     return render(request, 'arcticles/home.html')
+
+
+def delete_article(request, article_id):
+    a = get_object_or_404(Article, id=article_id)
+    a.delete()
+    return HttpResponseRedirect(reverse('main_page:index'))

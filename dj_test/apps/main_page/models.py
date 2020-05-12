@@ -7,6 +7,7 @@ class Article(models.Model):
     article_text = models.TextField('Текст статьи')
     pub_date = models.DateTimeField('Время публикации')
 
+
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'

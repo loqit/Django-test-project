@@ -24,6 +24,7 @@
       <list>
         <option value="$MODULE_DIR$/dj_test/apps/main_page/templates" />
         <option value="$MODULE_DIR$/dj_test/apps/main_page/static" />
+        <option value="$MODULE_DIR$/templates" />
       </list>
     </option>
   </component>
