@@ -24,7 +24,12 @@
           <li>User: {{ user.get_username }}</li>
           <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
     {% else %}
-          <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+          {% url 'main_page:login_page' as url_login %}
+          <li class="nav-item"><a class="nav-link {% if url_login == request.path %} active{% endif %}" href="{{ url_login }}">Login</a></li>
+              <li class="nav-item">
+      {% url 'main_page:register_page' as url_register %}
+    <a class="nav-link {% if url_register == request.path %} active{% endif %}" href="{{ url_register }}">Register</a>
+  </li>
    {% endif %}
       </ul>
      {% endblock %}

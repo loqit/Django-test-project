@@ -7,10 +7,11 @@
 <h2>{{article.article_title}}</h2>
 
 <p>{{article.article_text}}</p>
-<em>{{article.pub_date}}</em>
+
+<em>{{article.pub_date}} by {{article.author_name}}</em>
 
 
-{% if request.user.id == 1 %}
+{% if request.user.username == 'admin' or request.user.username == article.author_name %}
 <form action="{% url 'main_page:delete_article' article.id %}" method="get">
     {% csrf_token %}
 
@@ -25,6 +26,14 @@
             <strong>{{c.author_name}}</strong>
             <p>{{c.comment_text}}</p>
             <em>{{c.pub_date}}</em>
+            {% if request.user.username == 'admin' or request.user.username == c.author_name %}
+            <form action="{% url 'main_page:delete_comment' c.id  %}" method="get">
+                {% csrf_token %}
+
+                 <button type="submit">Delete</button>
+
+            </form>
+{% endif %}
         </p>
     {% endfor %}
 {% endif %}
