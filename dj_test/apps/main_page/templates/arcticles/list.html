@@ -21,7 +21,7 @@
     {% endif %}
 <br/>
 {% if user.is_authenticated %}
-<form action="{% url 'main_page:create_article'%}" method="POST">
+<form action="{% url 'main_page:create_article' %}" method="POST">
     {% csrf_token %}
     <input type="text" required placeholder="Article Title" name="name"><br>
     <textarea name="text" required="" placeholder="Article text" cols="30" rows="10"></textarea><br>
