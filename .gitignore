@@ -3,5 +3,6 @@
 __pycache__
 venv
 venv1
+venv2
 db.sqlite3
 .DS_Store
